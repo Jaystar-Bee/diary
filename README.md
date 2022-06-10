@@ -1,4 +1,7 @@
 # my-diary
+## live view
+modiary.netlify.app
+````
 
 ## Project setup
 ```
