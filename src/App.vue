@@ -7,7 +7,6 @@
 export default {
   created() {
     this.$store.dispatch("autoLogin");
-    console.log(this.$store.getters.isAuthenticated);
   },
 };
 </script>

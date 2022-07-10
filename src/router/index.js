@@ -21,7 +21,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
     next('/')
-  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+  } else if (!to.meta.requiresAuth && store.getters.isAuthenticated) {
     next('/main')
   } else {
     next()

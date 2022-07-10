@@ -23,7 +23,12 @@ export default createStore({
     setUser(state, payloads) {
       state.userId = payloads.userId
       state.token = payloads.userToken
-    }
+    },
+    clearUser(state) {
+      state.userId = null
+      state.token = null
+
+    },
   },
   actions: {
     async signIn(context) {
@@ -36,9 +41,13 @@ export default createStore({
           const googleToken = credential.accessToken;
           console.log(googleToken)
           // The signed-in user info.
+          console.log(result)
           const userId = result.user.uid;
           const userToken = result.user.accessToken
+          const expirationTime = result.user.stsTokenManager.expirationTime
+
           localStorage.setItem("userId", userId)
+          localStorage.setItem("expires", expirationTime)
           localStorage.setItem("userToken", userToken)
 
           context.commit("setUser", { userId, userToken })
@@ -59,9 +68,24 @@ export default createStore({
     autoLogin(context) {
       const userId = localStorage.getItem("userId")
       const userToken = localStorage.getItem("userToken")
+      let expireTime = localStorage.getItem('expires')
+      expireTime = Number.parseInt(expireTime)
+
+
+      const recentTime = new Date().getTime()
+      if (recentTime > expireTime) {
+        context.dispatch('logout')
+      }
 
       context.commit("setUser", { userId, userToken })
-    }
+    },
+    logout(context) {
+      localStorage.removeItem('userId')
+      localStorage.removeItem('expires')
+      localStorage.removeItem('userToken')
+      context.commit('clearUser')
+      router.replace('/')
+    },
   },
   modules: {
     data: dataModule

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <ul>
+    <div v-if="allDiary.length === 0" class="mt-10 text-center text-lg font-semibold">
+      You have no diary Yet
+    </div>
+    <ul v-else>
       <diary-item
         v-for="diary in allDiary"
         :key="diary.id"

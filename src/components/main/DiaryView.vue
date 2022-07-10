@@ -10,7 +10,9 @@
         <p @click="viewSearch" class="cursor-pointer">Search</p>
       </div>
       <keep-alive>
-        <component :is="activeComponent"></component>
+        <transition mode="out-in" name="diary">
+          <component :is="activeComponent"></component>
+        </transition>
       </keep-alive>
     </div>
   </div>
@@ -44,3 +46,23 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.diary-enter-from {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+.diary-enter-to,
+.diary-leave-from {
+  transform: translateY(0px);
+  opacity: 1;
+}
+.diary-enter-active,
+.diary-leave-active {
+  animation: all 1s ease-out;
+}
+.diary-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+</style>

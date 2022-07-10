@@ -31,7 +31,7 @@
               text-center
             "
           >
-            {{ diary.date }}
+            {{ formatDate(diary.date) }}
           </p>
         </div>
       </div>
@@ -58,6 +58,16 @@ export default {
       } else {
         return this.diary.description;
       }
+    },
+  },
+  methods: {
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString(undefined, {
+        year: "numeric",
+        day: "2-digit",
+        month: "short",
+      });
     },
   },
 };

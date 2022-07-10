@@ -46,7 +46,7 @@ export default {
         await this.$store.dispatch("signIn");
       } catch (error) {
         console.log(error);
-        this.message(error.message);
+        this.message = error.message;
       }
     },
   },

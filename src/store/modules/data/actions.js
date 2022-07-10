@@ -9,8 +9,6 @@ export default {
     async getDiaries(context) {
         const userId = context.rootGetters.userId
         const token = context.rootGetters.token
-        console.log(token)
-
         const diaries = []
         try {
             const response = await axios.get(`https://diary-a00aa-default-rtdb.firebaseio.com/diary/${userId}.json?auth=${token}`)

@@ -96,10 +96,7 @@ export default {
           return;
         } else {
           this.isLoading = true;
-          const year = new Date().getFullYear();
-          const month = new Date().getMonth() + 1;
-          const day = new Date().getDate();
-          const date = `${year}-0${month}-${day}`;
+          const date = new Date();
           await this.$store.dispatch("data/postDiary", {
             title: this.title,
             description: this.description,
